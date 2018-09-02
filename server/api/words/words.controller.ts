@@ -1,15 +1,40 @@
+import Ajv from 'ajv';
 import { NextFunction, Request, Response, Router} from 'express';
 import { wordsService} from './words.service';
 
-import { performance} from 'perf_hooks';
+const ajv = new Ajv();
+const schema = {
+  "properties": {
+    "words": {
+      "items": [
+       { "type":"string"}
+      ],
+       "type": "array",
+    }
+  },
+  "required":["words"],
+  "type": "object"
+};
+
+const validate = ajv.compile(schema)
+
 const router: Router = Router();
 
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
+  // console.log('ok req.body is: ');
+  // console.log(req.body);
+  if (!validate(req.body)) {
+    // console.log('validate.errors: ');
+    console.log(validate.errors);
+    // console.log(typeof validate.errors);
 
-  performance.mark('startPOST');
-  if (!req.body.words) {
-    // TODO: use ajv for validation
-    throw new Error('Expected request to have property "words"');
+    // console.log('validate.errors[0]');
+    // console.log(validate.errors[0].message);
+
+    const errorMsg =(validate.errors && validate.errors.length) ? validate.errors[0].message : 'Error: Invalid Parameters';
+    const error = { code: 400, message: errorMsg};
+    next(error);
+    throw new Error(errorMsg);
   }
   return wordsService.addToDataStore(req.body.words)
   .then((json: any) => {
