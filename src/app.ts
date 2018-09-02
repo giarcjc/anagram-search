@@ -17,6 +17,14 @@ const middleware = (req: express.Request, res: express.Response, next: express.N
 
   next();
 }
+
+function logErrors(err: any, req: express.Request, res: express.Response, next: express.NextFunction) {
+  logger.info('------------------------');
+  logger.error(err);
+  res.status(err.statusCode).send(err);
+  // next(err);
+}
+
 app.use(middleware)
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -26,5 +34,7 @@ const port: number = process.env.PORT ? +process.env.PORT : 3000;
 app.use('/words.json', words);
 app.use('/words', words);
 app.use('/anagrams', anagrams);
+
+app.use(logErrors);
 
 app.listen(port, () => logger.info(`Express server bunyan listening on port ${port}`));

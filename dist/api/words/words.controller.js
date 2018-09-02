@@ -23,18 +23,10 @@ var schema = {
 var validate = ajv.compile(schema);
 var router = express_1.Router();
 router.post('/', function (req, res, next) {
-    // console.log('ok req.body is: ');
-    // console.log(req.body);
     if (!validate(req.body)) {
-        // console.log('validate.errors: ');
-        // logger.error(validate.errors);
-        // console.log(typeof validate.errors);
-        // console.log('validate.errors[0]');
-        // console.log(validate.errors[0].message);
         var errorMsg = (validate.errors && validate.errors.length) ? validate.errors[0].message : 'Error: Invalid Parameters';
-        var error = { code: 400, message: errorMsg };
+        var error = { statusCode: 400, message: errorMsg };
         next(error);
-        throw new Error(errorMsg);
     }
     return words_service_1.wordsService.addToDataStore(req.body.words)
         .then(function (json) {

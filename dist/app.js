@@ -16,6 +16,12 @@ var middleware = function (req, res, next) {
     logger_1["default"].info("Outgoing Response: " + statusCode);
     next();
 };
+function logErrors(err, req, res, next) {
+    logger_1["default"].info('------------------------');
+    logger_1["default"].error(err);
+    res.status(err.statusCode).send(err);
+    // next(err);
+}
 app.use(middleware);
 app.use(body_parser_1["default"].urlencoded({ extended: false }));
 app.use(body_parser_1["default"].json());
@@ -23,4 +29,5 @@ var port = process.env.PORT ? +process.env.PORT : 3000;
 app.use('/words.json', words_1.words);
 app.use('/words', words_1.words);
 app.use('/anagrams', anagrams_1.anagrams);
+app.use(logErrors);
 app.listen(port, function () { return logger_1["default"].info("Express server bunyan listening on port " + port); });
