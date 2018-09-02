@@ -1,13 +1,15 @@
-const path = require('path');
-const fs = require('fs');
-const zlib = require('zlib');
-const redis = require('redis-stream');
-const getKey = require('./dist/db/key.service');
+import fs from 'fs';
+import path from 'path';
+import redis from 'redis-stream';
+import zlib from 'zlib';
+
+import getKey from './db/key.service';
+
 const client = new redis(6379, '127.0.0.1');
 const stream = client.stream();
 
 
-const filePath = path.join(__dirname, './dictionary.txt.gz');
+const filePath = path.join(__dirname, '../dictionary.txt.gz');
 
 const gunzip = zlib.createGunzip();
 
@@ -17,13 +19,13 @@ stream
   .pipe(fs.createReadStream(filePath))
   .pipe(gunzip)
   .pipe(redis.es.split())
-  .pipe(redis.es.map((word, cb) => {
+  .pipe(redis.es.map((word:string, cb:any) => {
     console.log('word: ', word);
     command = ['sadd', getKey(word), word];
     stream.redis.write(redis.parse(command));
     cb();
   }))
-  .on('error', err => console.error('Error reading file: ', err))
+  .on('error', (err: any) => console.error('Error reading file: ', err))
   .on('end', () => {
     stream.end();
     console.log('end');

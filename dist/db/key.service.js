@@ -6,6 +6,4 @@ exports.__esModule = true;
 function getKey(word) {
     return word.split('').sort().join('');
 }
-exports.keyService = {
-    getKey: getKey
-};
+exports["default"] = getKey;
