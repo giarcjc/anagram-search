@@ -1,7 +1,11 @@
 import bodyParser from 'body-parser';
 import express from 'express';
+
+// import bunyanMiddleware from 'bunyan-middleware';
 import { anagrams } from './api/anagrams';
 import { words } from './api/words';
+import logger from './logger';
+
 
 const app: express.Application = express();
 
@@ -14,4 +18,4 @@ app.use('/words.json', words);
 app.use('/words', words);
 app.use('/anagrams', anagrams);
 
-app.listen(port, () => console.log(`Express server listening on port ${port}`));
+app.listen(port, () => logger.info(`Express server bunyan listening on port ${port}`));
