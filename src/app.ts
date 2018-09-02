@@ -1,7 +1,6 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 
-// import bunyanMiddleware from 'bunyan-middleware';
 import { anagrams } from './api/anagrams';
 import { words } from './api/words';
 import logger from './logger';
@@ -9,6 +8,16 @@ import logger from './logger';
 
 const app: express.Application = express();
 
+const middleware = (req: express.Request, res: express.Response, next: express.NextFunction) => {
+  const { method, originalUrl, body } = req;
+  const { statusCode,  } = res;
+
+  logger.info(`Incoming Request: ${method}: ${originalUrl} ${body ? body : ''}`);
+  logger.info(`Outgoing Response: ${statusCode}`);
+
+  next();
+}
+app.use(middleware)
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 

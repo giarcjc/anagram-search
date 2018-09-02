@@ -5,11 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var body_parser_1 = __importDefault(require("body-parser"));
 var express_1 = __importDefault(require("express"));
-// import bunyanMiddleware from 'bunyan-middleware';
 var anagrams_1 = require("./api/anagrams");
 var words_1 = require("./api/words");
 var logger_1 = __importDefault(require("./logger"));
 var app = express_1["default"]();
+var middleware = function (req, res, next) {
+    var method = req.method, originalUrl = req.originalUrl, body = req.body;
+    var statusCode = res.statusCode;
+    logger_1["default"].info("Incoming Request: " + method + ": " + originalUrl + " " + (body ? body : ''));
+    logger_1["default"].info("Outgoing Response: " + statusCode);
+    next();
+};
+app.use(middleware);
 app.use(body_parser_1["default"].urlencoded({ extended: false }));
 app.use(body_parser_1["default"].json());
 var port = process.env.PORT ? +process.env.PORT : 3000;
