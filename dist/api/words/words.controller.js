@@ -26,7 +26,7 @@ router.post('/', function (req, res, next) {
     // console.log(req.body);
     if (!validate(req.body)) {
         // console.log('validate.errors: ');
-        console.log(validate.errors);
+        // logger.error(validate.errors);
         // console.log(typeof validate.errors);
         // console.log('validate.errors[0]');
         // console.log(validate.errors[0].message);

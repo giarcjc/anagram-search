@@ -1,7 +1,8 @@
 import redis from 'redis';
+import logger from '../logger';
 
 const client = redis.createClient();
-client.on('error', (err: any) => console.error(err));
+client.on('error', (err: any) => logger.error(err));
 
 
 /**

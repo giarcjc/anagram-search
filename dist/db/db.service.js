@@ -4,8 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var redis_1 = __importDefault(require("redis"));
+var logger_1 = __importDefault(require("../logger"));
 var client = redis_1["default"].createClient();
-client.on('error', function (err) { return console.error(err); });
+client.on('error', function (err) { return logger_1["default"].error(err); });
 /**
  * @param key the hashKey to the record set
  * @param word the word to add to the set
