@@ -4,6 +4,7 @@ import { wordsService} from './words.service';
 
 const ajv = new Ajv();
 const schema = {
+  "maxProperties": 1,
   "properties": {
     "words": {
       "items": [

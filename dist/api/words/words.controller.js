@@ -8,6 +8,7 @@ var express_1 = require("express");
 var words_service_1 = require("./words.service");
 var ajv = new ajv_1["default"]();
 var schema = {
+    "maxProperties": 1,
     "properties": {
         "words": {
             "items": [

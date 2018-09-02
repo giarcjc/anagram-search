@@ -48,7 +48,7 @@ describe('Words Enpoints', () => {
         });
     });
 
-    it.only('should NOT accept empty paylod', (done) => {
+    it('should NOT accept empty paylod', (done) => {
       const payload = {};
 
       request = chai.request(baseURL)
