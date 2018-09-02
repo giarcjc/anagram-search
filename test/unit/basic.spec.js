@@ -6,11 +6,10 @@ describe('basic route test', () => {
 
   describe('basic GET', () => {
     it('should GET ', (done) => {
-      request = chai.request(baseUrl)
+      request = chai.request('http://localhost:3000')
       .get('/')
       .end((err, res) => {
-        expect(err).to.be(null);
-        // expect(err.status).to.equal(404);
+        expect(err).to.equal(null);
         res.should.have.status(200);
         done();
       });

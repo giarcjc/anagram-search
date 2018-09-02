@@ -8,6 +8,8 @@
     "dev": "npm run tsc -- --watch",
     "listfiles": "npm run tsc --listFiles",
     "test": "mocha ./test/**/*.spec.js --recursive",
+    "tsc": "tsc",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "rubytest": "ruby anagram_test.rb"
   },
   "author": "chris craig <chris@cjcraig.com>",
@@ -28,6 +30,10 @@
     "es6-promise": "^4.2.4",
     "express": "^4.16.3",
     "redis": "^2.8.0",
+    "redis-stream": "^0.1.0",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-eslint-rules": "^5.4.0",
     "typescript": "^3.0.1"
   }
 }

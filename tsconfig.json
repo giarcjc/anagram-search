@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "lib": ["es2017", "dom"],
+    "outDir": "./dist",
+    "strict": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true
+  },
+  "include": [
+    "server/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
