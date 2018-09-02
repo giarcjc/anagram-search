@@ -27,6 +27,6 @@ function dropDataStore() {
 }
 exports.wordsService = {
     addToDataStore: addToDataStore,
-    removeWordFromDataStore: removeWordFromDataStore,
-    dropDataStore: dropDataStore
+    dropDataStore: dropDataStore,
+    removeWordFromDataStore: removeWordFromDataStore
 };

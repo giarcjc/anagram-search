@@ -10,7 +10,7 @@
     "test": "mocha ./test/**/*.spec.js --recursive",
     "tsc": "tsc",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "rubytest": "ruby anagram_test.rb"
+    "test-ruby": "ruby anagram_test.rb"
   },
   "author": "chris craig <chris@cjcraig.com>",
   "license": "ISC",

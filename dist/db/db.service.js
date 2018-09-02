@@ -43,7 +43,7 @@ function listWordsByKey(key) {
 }
 exports.dbService = {
     addWordsToSet: addWordsToSet,
-    removeWordFromSet: removeWordFromSet,
+    dropDataStore: dropDataStore,
     listWordsByKey: listWordsByKey,
-    dropDataStore: dropDataStore
+    removeWordFromSet: removeWordFromSet
 };

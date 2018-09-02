@@ -45,7 +45,7 @@ var key_service_1 = require("../../db/key.service");
  */
 function getAnagrams(word, limit) {
     return __awaiter(this, void 0, void 0, function () {
-        var hashKey, results;
+        var hashKey, results, anagrams;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -53,7 +53,10 @@ function getAnagrams(word, limit) {
                     return [4 /*yield*/, db_service_1.dbService.listWordsByKey(hashKey)];
                 case 1:
                     results = _a.sent();
-                    return [2 /*return*/, Object.values(results).slice(0, limit)];
+                    anagrams = {
+                        'anagrams': Object.values(results).filter(function (i) { return i !== word; }).slice(0, limit)
+                    };
+                    return [2 /*return*/, anagrams];
             }
         });
     });
