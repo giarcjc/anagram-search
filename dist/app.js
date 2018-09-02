@@ -11,6 +11,8 @@ var errors_1 = __importDefault(require("./errors"));
 var logger_1 = __importDefault(require("./logger"));
 var middleware_1 = __importDefault(require("./middleware"));
 var app = express_1["default"]();
+// middleware - just logging right now
+// must go before routes
 app.use(middleware_1["default"]);
 app.use(body_parser_1["default"].urlencoded({ extended: false }));
 app.use(body_parser_1["default"].json());
