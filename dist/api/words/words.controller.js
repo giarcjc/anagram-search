@@ -27,6 +27,7 @@ router.post('/', function (req, res, next) {
         var errorMsg = (validate.errors && validate.errors.length) ? validate.errors[0].message : 'Error: Invalid Parameters';
         var error = { statusCode: 400, message: errorMsg };
         next(error);
+        return;
     }
     return words_service_1.wordsService.addToDataStore(req.body.words)
         .then(function (json) {

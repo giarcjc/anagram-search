@@ -20,7 +20,6 @@ function logErrors(err, req, res, next) {
     logger_1["default"].info('------------------------');
     logger_1["default"].error(err);
     res.status(err.statusCode).send(err);
-    // next(err);
 }
 app.use(middleware);
 app.use(body_parser_1["default"].urlencoded({ extended: false }));

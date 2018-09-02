@@ -22,7 +22,6 @@ function logErrors(err: any, req: express.Request, res: express.Response, next: 
   logger.info('------------------------');
   logger.error(err);
   res.status(err.statusCode).send(err);
-  // next(err);
 }
 
 app.use(middleware)

@@ -19,7 +19,7 @@ describe('Words Enpoints', () => {
         });
     });
 
-    it.only('should NOT accept JSON with multiple properties', (done) => {
+    it('should NOT accept JSON with multiple properties', (done) => {
       const payload = {
         'words': ['read', 'dear', 'dare'],
         'morewords': ['read', 'dear', 'dare']
