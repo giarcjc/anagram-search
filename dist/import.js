@@ -7,7 +7,7 @@ var fs_1 = __importDefault(require("fs"));
 var path_1 = __importDefault(require("path"));
 var redis_stream_1 = __importDefault(require("redis-stream"));
 var zlib_1 = __importDefault(require("zlib"));
-var key_service_1 = __importDefault(require("./db/key.service"));
+var key_service_1 = require("./db/key.service");
 var logger_1 = __importDefault(require("./logger"));
 var client = new redis_stream_1["default"](6379, '127.0.0.1');
 var stream = client.stream();
@@ -21,7 +21,7 @@ stream
     .pipe(redis_stream_1["default"].es.split())
     .pipe(redis_stream_1["default"].es.map(function (word, cb) {
     logger_1["default"].trace('word: ', word);
-    command = ['sadd', key_service_1["default"](word), word];
+    command = ['sadd', key_service_1.keyService.getKey(word), word];
     stream.redis.write(redis_stream_1["default"].parse(command));
     cb();
 }))

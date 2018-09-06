@@ -3,7 +3,7 @@ import path from 'path';
 import redis from 'redis-stream';
 import zlib from 'zlib';
 
-import getKey from './db/key.service';
+import { keyService } from './db/key.service';
 import logger from './logger';
 
 const client = new redis(6379, '127.0.0.1');
@@ -21,7 +21,7 @@ stream
   .pipe(redis.es.split())
   .pipe(redis.es.map((word:string, cb:any) => {
     logger.trace('word: ', word);
-    command = ['sadd', getKey(word), word];
+    command = ['sadd', keyService.getKey(word), word];
     stream.redis.write(redis.parse(command));
     cb();
   }))

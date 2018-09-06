@@ -1,11 +1,11 @@
 import { dbService } from '../../db/db.service';
-import getKey from '../../db/key.service';
+import { keyService } from '../../db/key.service';
 
 /**
  * @param data JSON array of English-language words to add to the corpus (data store).
  */
 function addToDataStore(data: string[]) {
-  const hashKey: string = getKey(data[0]);
+  const hashKey: string = keyService.getKey(data[0]);
   data.forEach((word) => dbService.addWordsToSet(hashKey, word));
   return Promise.resolve();
 }
@@ -14,7 +14,7 @@ function addToDataStore(data: string[]) {
  * @param word  single word to delete from the data store.
  */
 function removeWordFromDataStore(word: string) {
-  const hashKey: string = getKey(word);
+  const hashKey: string = keyService.getKey(word);
   dbService.removeWordFromSet(hashKey, word);
   return Promise.resolve();
 }

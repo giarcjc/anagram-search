@@ -34,12 +34,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
 var db_service_1 = require("../../db/db.service");
-var key_service_1 = __importDefault(require("../../db/key.service"));
+var key_service_1 = require("../../db/key.service");
 /**
  * Returns a JSON array of English-language words that are anagrams
  * of the word passed in the URL.
@@ -52,7 +49,7 @@ function getAnagrams(word, limit) {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
-                    hashKey = key_service_1["default"](word);
+                    hashKey = key_service_1.keyService.getKey(word);
                     return [4 /*yield*/, db_service_1.dbService.listWordsByKey(hashKey)];
                 case 1:
                     results = _a.sent();
