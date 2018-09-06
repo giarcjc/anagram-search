@@ -4,8 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var redis_1 = __importDefault(require("redis"));
+var environment_1 = __importDefault(require("../environment"));
 var logger_1 = __importDefault(require("../logger"));
-var client = redis_1["default"].createClient();
+var client = redis_1["default"].createClient(environment_1["default"].REDIS_PORT.value, environment_1["default"].REDIS_HOST.value);
 client.on('error', function (err) { return logger_1["default"].error(err); });
 /**
  * @param key the hashKey to the record set

@@ -1,7 +1,9 @@
+
 import redis from 'redis';
+import env from '../environment';
 import logger from '../logger';
 
-const client = redis.createClient();
+const client = redis.createClient(env.REDIS_PORT.value, env.REDIS_HOST.value);
 client.on('error', (err: any) => logger.error(err));
 
 

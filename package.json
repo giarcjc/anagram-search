@@ -8,7 +8,7 @@
     "build-dev": "npm run tsc -- --watch",
     "import": "node dist/import.js",
     "listfiles": "npm run tsc --listFiles",
-    "start": "node dist/app.js",
+    "start": "npm run build && node dist/app.js",
     "start-dev": "supervisor -- dist/app.js",
     "test": "mocha ./test/**/*.spec.js --recursive",
     "tsc": "tsc",

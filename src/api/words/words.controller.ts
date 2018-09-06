@@ -22,12 +22,10 @@ const validate = ajv.compile(schema)
 const router: Router = Router();
 
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
-
   if (!validate(req.body)) {
     const errorMsg =(validate.errors && validate.errors.length) ? validate.errors[0].message : 'Error: Invalid Parameters';
     const error = { statusCode: 400, message: errorMsg};
-    next(error);
-    return;
+    return next(error);
   }
 
   return wordsService.addToDataStore(req.body.words)
