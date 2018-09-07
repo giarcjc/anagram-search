@@ -1,0 +1,78 @@
+# Group Words
+
+Resources related to
+
+## Words Collection [/words]
+
+
+# POST
++ Request
+    + Headers
+
+            Host:localhost:3000
+            User-Agent:curl/7.54.0
+            Accept:*/*
+            Content-Type:application/json
+            Content-Length:37
+
+    + Body
+
+            { "words": ["read", "dear", "dare"] }
+
++ Response 201
+    + Headers
+
+            X-Powered-By:Express
+            Date:Fri, 07 Sep 2018 00:30:54 GMT
+            Connection:keep-alive
+            Content-Length:0
+
+    + Body
+
+
+
+# DELETE /words/:word.json
++ Request
+    + Headers
+
+            Host:localhost:3000
+            User-Agent:curl/7.54.0
+            Accept:*/*
+
+    + Body
+
+
+
++ Response 204
+    + Headers
+
+            X-Powered-By:Express
+            ETag:W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
+            Date:Fri, 07 Sep 2018 00:33:17 GMT
+            Connection:keep-alive
+
+    + Body
+
+
+
+# DELETE /words.json
++ Request
+    + Headers
+
+            Host:localhost:3000
+            User-Agent:curl/7.54.0
+            Accept:*/*
+
+    + Body
+
+
+
++ Response 204
+    + Headers
+
+            X-Powered-By:Express
+            ETag:W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
+            Date:Fri, 07 Sep 2018 00:34:18 GMT
+            Connection:keep-alive
+
+    + Body

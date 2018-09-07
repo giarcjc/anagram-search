@@ -6,10 +6,15 @@
   "scripts": {
     "build": "npm run tsc",
     "build-dev": "npm run tsc -- --watch",
+    "build-docs": "aglio -i docs/api/api-documentation.apib -o docs/api/index.html",
+    "docs": "open -a Google\\ Chrome docs/api/index.html",
+    "docker": "npm run docker-build && npm run dc-up",
+    "docker-build": "docker build -t anagram-search:local .",
+    "dc-up": "docker-compose up",
     "import": "node dist/import.js",
     "listfiles": "npm run tsc --listFiles",
     "start": "npm run build && node dist/app.js",
-    "start-dev": "supervisor -- dist/app.js",
+    "start-dev": "REDIS_HOST=127.0.0.1 supervisor -- dist/app.js",
     "test": "mocha ./test/**/*.spec.js --recursive",
     "tsc": "tsc",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
@@ -17,6 +22,10 @@
   },
   "author": "chris craig <chris@cjcraig.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/giarcjc/anagram-search.git"
+  },
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-http": "^3.0.0",
@@ -30,6 +39,7 @@
     "@types/express": "^4.16.0",
     "@types/node": "^10.9.2",
     "@types/redis": "^2.8.6",
+    "aglio": "^2.3.0",
     "ajv": "^6.5.3",
     "body-parser": "^1.18.3",
     "bunyan": "^1.8.12",
