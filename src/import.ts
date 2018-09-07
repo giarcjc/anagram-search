@@ -2,16 +2,16 @@ import fs from 'fs';
 import path from 'path';
 import redis from 'redis-stream';
 import zlib from 'zlib';
-
+import env from './environment';
 import { keyService } from './db/key.service';
 import logger from './logger';
 
-const client = new redis(6379, '127.0.0.1');
+const redisPort:number = env.REDIS_PORT ? +env.REDIS_PORT : 6379;
+
+const client = new redis(redisPort, env.REDIS_HOST);
 const stream = client.stream();
-
-const filePath = path.join(__dirname, '../dictionary.txt.gz');
-
 const gunzip = zlib.createGunzip();
+const filePath = path.join(__dirname, '../dictionary.txt.gz');
 
 let command;
 logger.info('Importing dictionary file to DB...please be patient');
