@@ -5,7 +5,7 @@ Anagram-Search API
 
 # Install
 
-`npm i anagram-search`
+`git clone git@github.com:giarcjc/anagram-search.git`
 
 ## Running in Docker (recommended)
 
