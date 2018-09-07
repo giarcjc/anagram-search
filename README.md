@@ -15,7 +15,7 @@ Pre-requisities:
 
 `npm run docker`
 
-This command simply concatenates two scripts, `npm run docker-build` which builds the docker image, and `npm run dc-up` which uses the docker-compose file to spin up the Anagram-Search api with a linked Redis DB in it's own container.
+This command concatenates three scripts, `npm run docker-build` which builds the docker image, `npm run dc-up` which uses the docker-compose file to spin up the Anagram-Search api with a linked Redis DB in it's own container, and `npm run docker-import` which will run the import command to build the corpus inside the container (see Creating the Corpus below).  If you desire a docker build without running the import command you can simply build and run dc up via `npm run docker-build && npm run dc-up`.
 
 The first time you run the docker command, the project will take fairly long time to build the image.  However after the initial image is built it should be cached so you can simply run `npm run dc-up` to spin the project up quickly.
 
@@ -49,10 +49,9 @@ If you wish to run the project locally without using docker, you need to have no
 
 ## Creating the Corpus
 
-`npm run start-without-import`
 `npm run import`
 
-In order to verify that anagrams being returned for a given word are actual English words, we utilize a corpus.  The corpus is stored in Redis, which means we need to ingest a dictionary file (assumed to be dictionary.txt.gz) into the data store.  Running `npm run start-without-import` will start the application locally without automatically importing the dictionary file so you can have a 'clean' db.  Running `npm run import` will simply unzip and import the dictionary.txt.gz at the root level of the project.
+In order to verify that anagrams being returned for a given word are actual English words, we utilize a corpus.  The corpus is stored in Redis, which means we need to ingest a dictionary file (assumed to be dictionary.txt.gz) into the data store. Running `npm run import` will unzip and import the dictionary.txt.gz at the root level of the project.
 
 
 ## Tests
