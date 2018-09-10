@@ -21,17 +21,20 @@ The first time you run the docker command, the project will take fairly long tim
 
 Once the project is up and running you should see a log file resembling `anagram-search    | {"name":"Anagram-Search-Api","hostname":"1639c1de5348","pid":46,"level":30,"msg":"Express server bunyan listening on port 3000","time":"2018-09-07T04:29:36.715Z","v":0}` which lets you know the api is ready for your queries.
 
-Next we'll create the corpus by importing the dictionary into Redis.  First exec into the docker container via:
+## Creating the Corpus
+
+In order to verify that anagrams being returned for a given word are actual English words, we utilize a corpus.  The corpus is stored in Redis, which means we need to ingest a dictionary file (assumed to be dictionary.txt.gz) into the data store.
+
+We'll create the corpus by importing the dictionary into Redis.  First exec into the docker container via:
 
 `npm run shell`
 
-and then run `npm run import` to run the import command which builds the corpus inside the container (see Creating the Corpus below).
-
-## Creating the Corpus
+and then run
 
 `npm run import`
 
-In order to verify that anagrams being returned for a given word are actual English words, we utilize a corpus.  The corpus is stored in Redis, which means we need to ingest a dictionary file (assumed to be dictionary.txt.gz) into the data store. Running `npm run import` will unzip and import the dictionary.txt.gz at the root level of the project.
+to run the import command which will unzip and import the dictionary.txt.gz located at the root level of the project.  Alternately if you're running locally
+
 
 
 ## Using the API
@@ -56,9 +59,21 @@ Pre-requisities:
  - Local install of [node](https://nodejs.org/en/download/)
  - Local install of [redis](https://redis.io/topics/quickstart)
 
-`npm run start-dev`
-
 If you wish to run the project locally without using docker, you need to have node and redis installed locally.  The project was developed using Node v10.8.0 although any version of Node starting from v8.11.0 (LTS) should work ok.
+
+First pull dependencies:
+
+`npm i ` or `npm install`
+
+Then start the server:
+
+`npm run start`
+
+Then in another bash shell, cd to the project and run
+
+`npm run import`
+
+to create the corpus.
 
 
 ## Tests
@@ -77,6 +92,4 @@ This runs a suite of ruby smoke tests that were used to guide the development of
 `npm run build`
 
 This project was developed using Typescript so if you modify any of the source code you'll need to compile the ts files to js.  If you're doing active development you can run `npm run build-dev` to watch for changes.  Similarly you can run `npm run start-dev` to start the app locally with [supervisor](https://github.com/petruisfan/node-supervisor) (requires local install of supervisor).
-
-
 
