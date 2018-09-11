@@ -1,4 +1,5 @@
 --reporter spec
 --ui bdd
 --require ./test/support/setup
+--require ./test/support/utils
 --timeout 12000

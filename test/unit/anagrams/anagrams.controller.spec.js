@@ -1,49 +1,43 @@
+require('../../support/utils').getMockedApp();
+const {anagramsService} = require('../../../dist/api/anagrams/anagrams.service');
+
 describe('Anagrams Endpoints', () => {
   let request;
-  const sandbox = sinon.sandbox;
+  let sandbox;
 
-  after(() => sandbox.restore());
+  before(() => {
+    sandbox = sinon.createSandbox();
+  });
+
+  afterEach(() => {
+    sandbox.restore();
+  });
 
   describe('/anagrams/read.json GET', () => {
 
-    it('should return array of 2 anagrams for the param "read" without including param', (done) => {
-
-      const expectedResponse = {
-        anagrams: [
-          'dear',
-          'dare'
-        ]
-      }
-
+    it('should return 200 for anagrams/:word.json endpoint', function(done) {
+      const stub = sandbox.stub(anagramsService, 'getAnagrams').resolves({foo: 'bar'});
       request = chai.request(baseURL)
       .get('/anagrams/read.json')
       .end((err, res) => {
         expect(err).to.equal(null);
         res.should.have.status(200);
-        res.body.should.have.property('anagrams');
-        res.body.should.deep.equal(expectedResponse);
-        const arr = res.body.anagrams;
-        arr.should.be.an('array');
-        arr.should.have.lengthOf(2);
+        stub.should.have.been.calledOnce.and.calledWith('read');
         done();
       });
     });
 
-
-    it('should return array of 1 anagrams for the param "read" if limit query param', (done) => {
+    it('should return 200 for anagrams/:word.json endpoint and pass query param', function(done) {
+      const stub = sandbox.stub(anagramsService, 'getAnagrams').resolves({foo: 'bar'});
       request = chai.request(baseURL)
       .get('/anagrams/read.json?limit=1')
       .end((err, res) => {
         expect(err).to.equal(null);
         res.should.have.status(200);
-        res.body.should.have.property('anagrams');
-        const arr = res.body.anagrams;
-        arr.should.be.an('array');
-        arr.should.have.lengthOf(1);
+        stub.should.have.been.calledOnce.and.calledWith('read', 1);
         done();
       });
     });
-
 
   });
 

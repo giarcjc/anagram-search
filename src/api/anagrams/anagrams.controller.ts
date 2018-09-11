@@ -9,7 +9,8 @@ const router: Router = Router();
  */
 
 router.get('/:word.json', (req: Request, res: Response, next: NextFunction) => {
-  return anagramsService.getAnagrams(req.params.word, req.query.limit)
+  const limit:any = req.query.limit ? parseInt(req.query.limit, 10) : 10000;
+  return anagramsService.getAnagrams(req.params.word, limit)
     .then((json: any) => {res.send(json)
     })
     .catch((err: any) => next(err));

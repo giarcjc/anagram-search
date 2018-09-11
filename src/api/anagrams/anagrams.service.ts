@@ -7,7 +7,7 @@ import { keyService } from '../../db/key.service';
  *
  * Needs to call DB and get all anagram results for given word
  */
-async function getAnagrams(word: string, limit: number) {
+async function getAnagrams(word: string, limit?: number) {
   const hashKey: string = keyService.getKey(word);
   const results = await dbService.listWordsByKey(hashKey);
   const anagrams = {

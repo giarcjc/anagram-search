@@ -8,7 +8,8 @@ var router = express_1.Router();
  * that indicates the maximum number of results to return.
  */
 router.get('/:word.json', function (req, res, next) {
-    return anagrams_service_1.anagramsService.getAnagrams(req.params.word, req.query.limit)
+    var limit = req.query.limit ? parseInt(req.query.limit, 10) : 10000;
+    return anagrams_service_1.anagramsService.getAnagrams(req.params.word, limit)
         .then(function (json) {
         res.send(json);
     })["catch"](function (err) { return next(err); });
