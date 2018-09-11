@@ -15,6 +15,7 @@ var import_1 = require("./import");
 var logger_1 = __importDefault(require("./logger"));
 var middleware_1 = __importDefault(require("./middleware"));
 var app = express_1["default"]();
+app.set('x-powered-by', false);
 var redisPort = environment_1["default"].REDIS_PORT ? +environment_1["default"].REDIS_PORT : 6379;
 var redisHost = environment_1["default"].REDIS_HOST ? environment_1["default"].REDIS_HOST : '127.0.0.1';
 db_service_1.dbService.connectToRedis(redisPort, redisHost);
