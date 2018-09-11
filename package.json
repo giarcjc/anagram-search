@@ -11,7 +11,7 @@
     "docker": "npm run docker-build && npm run dc-up && npm run docker-import",
     "docker-build": "docker build -t anagram-search:local .",
     "dc-up": "docker-compose up",
-    "import": "node dist/import.js",
+    "import": "curl -d {} localhost:3000/seed",
     "listfiles": "npm run tsc --listFiles",
     "shell": "docker exec -it anagram-search bash",
     "start": "npm run build && node dist/app.js",
