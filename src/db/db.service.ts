@@ -1,13 +1,23 @@
 
-import redis from 'redis';
-import env from '../environment';
+import redis, { RedisClient } from 'redis';
+
 import logger from '../logger';
 
-const redisPort:number = env.REDIS_PORT ? +env.REDIS_PORT : 6379;
+// const redisPort:number = env.REDIS_PORT ? +env.REDIS_PORT : 6379;
 
-const client = redis.createClient(redisPort, env.REDIS_HOST);
-client.on('error', (err: any) => logger.error(err));
+// const client = redis.createClient(redisPort, env.REDIS_HOST);
 
+// client.on('error', (err: any) => logger.error(err));
+
+
+
+let client:RedisClient;
+
+function connectToRedis(port: number, host: string) {
+  client = redis.createClient(port, host);
+  client.on('error', (err: any) => logger.error(err));
+  client.on('connect', () => logger.info('Successfully connected to Redis'));
+}
 
 /**
  * @param key the hashKey to the record set
@@ -50,6 +60,7 @@ function listWordsByKey(key: string) {
 
 export const dbService = {
   addWordsToSet,
+  connectToRedis,
   dropDataStore,
   listWordsByKey,
   removeWordFromSet,

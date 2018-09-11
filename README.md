@@ -33,7 +33,7 @@ and then run
 
 `npm run import`
 
-to run the import command which will unzip and import the dictionary.txt.gz located at the root level of the project.  Alternately if you're running locally
+to run the import command which will unzip and import the dictionary.txt.gz located at the root level of the project.  Finally enter `exit` to exit the docker container.
 
 
 

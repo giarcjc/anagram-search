@@ -5,12 +5,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 var body_parser_1 = __importDefault(require("body-parser"));
 var express_1 = __importDefault(require("express"));
+var path_1 = __importDefault(require("path"));
 var anagrams_1 = require("./api/anagrams");
 var words_1 = require("./api/words");
+var db_service_1 = require("./db/db.service");
+var environment_1 = __importDefault(require("./environment"));
 var errors_1 = __importDefault(require("./errors"));
+var import_1 = require("./import");
 var logger_1 = __importDefault(require("./logger"));
 var middleware_1 = __importDefault(require("./middleware"));
 var app = express_1["default"]();
+var redisPort = environment_1["default"].REDIS_PORT ? +environment_1["default"].REDIS_PORT : 6379;
+var redisHost = environment_1["default"].REDIS_HOST ? environment_1["default"].REDIS_HOST : '127.0.0.1';
+db_service_1.dbService.connectToRedis(redisPort, redisHost);
+var filePath = path_1["default"].join(__dirname, '../dictionary.txt.gz');
+// build the corpus by importing dictionary into db
+if (filePath) {
+    import_1.importService.streamToRedis(redisPort, redisHost, filePath);
+}
 // middleware - just logging right now
 // must go before routes
 app.use(middleware_1["default"]);

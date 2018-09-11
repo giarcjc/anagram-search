@@ -4,10 +4,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 var redis_1 = __importDefault(require("redis"));
-var environment_1 = __importDefault(require("../environment"));
 var logger_1 = __importDefault(require("../logger"));
-var client = redis_1["default"].createClient(environment_1["default"].REDIS_PORT.value, environment_1["default"].REDIS_HOST.value);
-client.on('error', function (err) { return logger_1["default"].error(err); });
+// const redisPort:number = env.REDIS_PORT ? +env.REDIS_PORT : 6379;
+// const client = redis.createClient(redisPort, env.REDIS_HOST);
+// client.on('error', (err: any) => logger.error(err));
+var client;
+function connectToRedis(port, host) {
+    client = redis_1["default"].createClient(port, host);
+    client.on('error', function (err) { return logger_1["default"].error(err); });
+    client.on('connect', function () { return logger_1["default"].info('Successfully connected to Redis'); });
+}
 /**
  * @param key the hashKey to the record set
  * @param word the word to add to the set
@@ -45,6 +51,7 @@ function listWordsByKey(key) {
 }
 exports.dbService = {
     addWordsToSet: addWordsToSet,
+    connectToRedis: connectToRedis,
     dropDataStore: dropDataStore,
     listWordsByKey: listWordsByKey,
     removeWordFromSet: removeWordFromSet
