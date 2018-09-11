@@ -1,0 +1,30 @@
+# POST /seed
+
+Can be used to seed the DB in the event it has been dropped.
+
++ Request
+    + Headers
+
+            Host:localhost:3000
+            User-Agent:curl/7.54.0
+            Accept:*/*
+            Content-Type:application/json
+            Content-Length:0
+
+    + Body
+
+            {}
+
+
++ Response 200
+    + Headers
+
+            Content-Type:application/json; charset=utf-8
+            Content-Length:18
+            ETag:W/"12-XTtz1GEy8vTWPkbmwMtfYDayJvM"
+            Date:Tue, 11 Sep 2018 06:53:29 GMT
+            Connection:keep-alive
+
+    + Body
+
+            "import succeeded"

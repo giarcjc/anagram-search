@@ -5,7 +5,9 @@ Anagram-Search API
 
 # Install
 
-`git clone git@github.com:giarcjc/anagram-search.git`
+```
+  git clone git@github.com:giarcjc/anagram-search.git
+```
 
 ## Running in Docker (recommended)
 
@@ -25,16 +27,17 @@ Once the project is up and running you should see a log file resembling `anagram
 
 In order to verify that anagrams being returned for a given word are actual English words, we utilize a corpus.  The corpus is stored in Redis, which means we need to ingest a dictionary file (assumed to be dictionary.txt.gz) into the data store.
 
-We'll create the corpus by importing the dictionary into Redis.  First exec into the docker container via:
-
-`npm run shell`
-
-and then run
+The corpus is created at startup by importing the dictionary into Redis.  If you accidentally (or intentionally) drop the database via the DELETE /words.json route, the db can be re-seeded with the dictionary file by running:
 
 `npm run import`
 
-to run the import command which will unzip and import the dictionary.txt.gz located at the root level of the project.  Finally enter `exit` to exit the docker container.
+to run the import command which will unzip and import the dictionary.txt.gz located at the root level of the project.
 
+Alternately you can seed the DB by sending a POST request to the `/seed` endpoint.
+
+`curl -d {} localhost:3000/seed`
+
+As you can see no payload body is necessary when sending a POST request to `/seed`.
 
 
 ## Using the API
@@ -46,7 +49,9 @@ You can call the api via curl, postman, httpie, or whatever means you prefer, bu
 
 ## Documentation
 
-`npm run docs`
+```
+  npm run docs
+```
 
 The API documentation can be viewed by opening the file at `docs/api/index.html` with the browser of your choice.  I included a convenience command which should launch it in Chrome if you're on a Mac (other OS/browser combos should just open the file directly).
 
@@ -65,27 +70,23 @@ First pull dependencies:
 
 `npm i ` or `npm install`
 
-Then start the server:
+In a different bash shell, start the redis server
+
+`redis-server`
+
+Then back in the project dir, start the api server:
 
 `npm run start`
-
-Then in another bash shell, cd to the project and run
-
-`npm run import`
-
-to create the corpus.
-
 
 ## Tests
 
 `npm run test`
 
-Runs unit tests written with Mocha Chai and Sinon.
+Runs unit tests written with Mocha Chai and Sinon.  It's better to run these without redis or the app running because otherwise you'll get conflicts between port numbers being in use.
 
 `npm run test-ruby`
 
 This runs a suite of ruby smoke tests that were used to guide the development of the api.
-
 
 ## Building the project and local development
 

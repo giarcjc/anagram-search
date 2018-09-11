@@ -12,6 +12,7 @@ import logger from './logger';
 import middleware from './middleware';
 
 const app: express.Application = express();
+app.set('x-powered-by', false);
 
 const redisPort:number = env.REDIS_PORT ? +env.REDIS_PORT : 6379;
 const redisHost: string = env.REDIS_HOST ? env.REDIS_HOST : '127.0.0.1';
