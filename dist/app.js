@@ -18,10 +18,21 @@ var app = express_1["default"]();
 var redisPort = environment_1["default"].REDIS_PORT ? +environment_1["default"].REDIS_PORT : 6379;
 var redisHost = environment_1["default"].REDIS_HOST ? environment_1["default"].REDIS_HOST : '127.0.0.1';
 db_service_1.dbService.connectToRedis(redisPort, redisHost);
-var filePath = path_1["default"].join(__dirname, '../dictionary.txt.gz');
 // build the corpus by importing dictionary into db
+var filePath = path_1["default"].join(__dirname, '../dictionary.txt.gz');
+function seedDB() {
+    return new Promise(function (resolve, reject) {
+        try {
+            import_1.importService.streamToRedis(redisPort, redisHost, filePath);
+            resolve('import succeeded');
+        }
+        catch (err) {
+            reject(err);
+        }
+    });
+}
 if (filePath) {
-    import_1.importService.streamToRedis(redisPort, redisHost, filePath);
+    seedDB();
 }
 // middleware - just logging right now
 // must go before routes
@@ -32,6 +43,10 @@ var port = process.env.PORT ? +process.env.PORT : 3000;
 app.use('/words.json', words_1.words);
 app.use('/words', words_1.words);
 app.use('/anagrams', anagrams_1.anagrams);
+app.post('/seed', function (req, res, next) {
+    seedDB()
+        .then(function (response) { return res.json(response); })["catch"](function (err) { return next(err); });
+});
 // error logging - must go last
 app.use(errors_1["default"]);
 app.listen(port, function () { return logger_1["default"].info("Express server bunyan listening on port " + port); });

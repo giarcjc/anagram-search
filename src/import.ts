@@ -31,7 +31,6 @@ function streamToRedis(port: number, host: string, filePath: string) {
     })
     .on('close', () => {
       logger.info('Finished Importing Dictionary File.');
-      // process.exit();
     });
 
 }

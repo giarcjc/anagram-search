@@ -18,11 +18,24 @@ const redisHost: string = env.REDIS_HOST ? env.REDIS_HOST : '127.0.0.1';
 
 dbService.connectToRedis(redisPort, redisHost);
 
-const filePath: string = path.join(__dirname, '../dictionary.txt.gz');
 
 // build the corpus by importing dictionary into db
+
+const filePath: string = path.join(__dirname, '../dictionary.txt.gz');
+
+function seedDB() {
+  return new Promise((resolve, reject) => {
+    try {
+      importService.streamToRedis(redisPort, redisHost, filePath);
+      resolve('import succeeded');
+    } catch(err) {
+      reject(err);
+    }
+  });
+}
+
 if (filePath) {
-  importService.streamToRedis(redisPort, redisHost, filePath);
+  seedDB();
 }
 
 // middleware - just logging right now
@@ -37,6 +50,11 @@ const port: number = process.env.PORT ? +process.env.PORT : 3000;
 app.use('/words.json', words);
 app.use('/words', words);
 app.use('/anagrams', anagrams);
+app.post('/seed', (req, res, next) => {
+  seedDB()
+  .then((response) => res.json(response))
+  .catch(err => next(err) );
+})
 
 // error logging - must go last
 app.use(errors);
