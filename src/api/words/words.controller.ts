@@ -21,6 +21,10 @@ const validate = ajv.compile(schema)
 
 const router: Router = Router();
 
+router.get('', (req: Request, res: Response, next: NextFunction) => {
+  return {}
+});
+
 router.post('/', (req: Request, res: Response, next: NextFunction) => {
   if (!validate(req.body)) {
     const errorMsg =(validate.errors && validate.errors.length) ? validate.errors[0].message : 'Error: Invalid Parameters';
@@ -36,7 +40,7 @@ router.post('/', (req: Request, res: Response, next: NextFunction) => {
 });
 
 router.delete('/:word.json', (req: Request, res: Response, next: NextFunction) => {
-  return wordsService.removeWordFromDataStore(req.params.word)
+  return wordsService.removeFromDataStore(req.params.word, req.query.drop)
     .then(() => {
       res.sendStatus(204);
     })

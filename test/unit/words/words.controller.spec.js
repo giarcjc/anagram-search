@@ -82,13 +82,25 @@ describe('Words Enpoints', () => {
 
   describe('/words/read.json DELETE', () => {
     it('should return 204 for delete endpoint with param', (done) => {
-      const stub = sandbox.stub(wordsService, 'removeWordFromDataStore').resolves({});
+      const stub = sandbox.stub(wordsService, 'removeFromDataStore').resolves({});
       request = chai.request(baseURL)
         .delete('/words/read.json')
         .end((err, res) => {
           expect(err).to.equal(null);
           res.should.have.status(204);
           stub.should.have.been.calledWith('read');
+          done();
+      });
+    });
+
+    it('should return 204 for delete endpoint with param and query param drop', (done) => {
+      const stub = sandbox.stub(wordsService, 'removeFromDataStore').resolves({});
+      request = chai.request(baseURL)
+        .delete('/words/read.json?drop=all')
+        .end((err, res) => {
+          expect(err).to.equal(null);
+          res.should.have.status(204);
+          stub.should.have.been.calledWith('read', 'all');
           done();
       });
     });

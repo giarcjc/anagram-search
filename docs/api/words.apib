@@ -1,19 +1,16 @@
 # Group Words
 
-Resources related to
+Provides a resource for creating  sets of words and deleting words from the corpus.
 
-## Words Collection [/words]
+## Words [/words]
 
-
-# POST
+### Create Set of Words [POST]
 + Request
     + Headers
 
             Host:localhost:3000
-            User-Agent:curl/7.54.0
             Accept:*/*
             Content-Type:application/json
-            Content-Length:37
 
     + Body
 
@@ -22,57 +19,53 @@ Resources related to
 + Response 201
     + Headers
 
-            X-Powered-By:Express
-            Date:Fri, 07 Sep 2018 00:30:54 GMT
-            Connection:keep-alive
             Content-Length:0
 
     + Body
 
 
+### Drop entire Database [DELETE]
 
-# DELETE /words/:word.json
 + Request
     + Headers
 
             Host:localhost:3000
-            User-Agent:curl/7.54.0
             Accept:*/*
 
     + Body
 
++ Response 204
+    + Headers
+
+            Connection:keep-alive
+
+    + Body
+
+## Words [/words/:word.json{?drop}]
+
+### Remove words from set or drop a set [DELETE]
+
++ Parameters
+
+    + drop: `all` - (string, optional) - if provided, will drop all words in the set by the :word key
+
++ Request
+    + Headers
+
+            Host:localhost:3000
+            Accept:*/*
+            Content-Type:application/json
+
+    + Body
 
 
 + Response 204
     + Headers
 
             X-Powered-By:Express
-            ETag:W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
-            Date:Fri, 07 Sep 2018 00:33:17 GMT
             Connection:keep-alive
 
     + Body
 
 
 
-# DELETE /words.json
-+ Request
-    + Headers
-
-            Host:localhost:3000
-            User-Agent:curl/7.54.0
-            Accept:*/*
-
-    + Body
-
-
-
-+ Response 204
-    + Headers
-
-            X-Powered-By:Express
-            ETag:W/"a-bAsFyilMr4Ra1hIU5PyoyFRunpI"
-            Date:Fri, 07 Sep 2018 00:34:18 GMT
-            Connection:keep-alive
-
-    + Body

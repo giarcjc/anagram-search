@@ -13,8 +13,14 @@ function addToDataStore(data: string[]) {
 /**
  * @param word  single word to delete from the data store.
  */
-function removeWordFromDataStore(word: string) {
+function removeFromDataStore(word: string, drop?: string) {
   const hashKey: string = keyService.getKey(word);
+
+  if (drop && drop === 'all') {
+    dbService.removeSetByKey(hashKey);
+    return Promise.resolve();
+  }
+
   dbService.removeWordFromSet(hashKey, word);
   return Promise.resolve();
 }
@@ -30,5 +36,5 @@ function dropDataStore() {
 export const wordsService = {
   addToDataStore,
   dropDataStore,
-  removeWordFromDataStore,
+  removeFromDataStore,
 }

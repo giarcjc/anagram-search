@@ -22,6 +22,9 @@ var schema = {
 };
 var validate = ajv.compile(schema);
 var router = express_1.Router();
+router.get('', function (req, res, next) {
+    return {};
+});
 router.post('/', function (req, res, next) {
     if (!validate(req.body)) {
         var errorMsg = (validate.errors && validate.errors.length) ? validate.errors[0].message : 'Error: Invalid Parameters';
@@ -34,7 +37,7 @@ router.post('/', function (req, res, next) {
     })["catch"](function (err) { return next(err); });
 });
 router["delete"]('/:word.json', function (req, res, next) {
-    return words_service_1.wordsService.removeWordFromDataStore(req.params.word)
+    return words_service_1.wordsService.removeFromDataStore(req.params.word, req.query.drop)
         .then(function () {
         res.sendStatus(204);
     })["catch"](function (err) { return next(err); });

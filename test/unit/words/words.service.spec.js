@@ -34,10 +34,21 @@ describe('Words Service', () => {
     const getKeyStub = sandbox.stub(keyService, 'getKey').returns('ader');
     const dbStub = sandbox.stub(dbService, 'removeWordFromSet').resolves({});
     const word = 'read';
-    await wordsService.removeWordFromDataStore(word);
+    await wordsService.removeFromDataStore(word);
     getKeyStub.should.have.been.calledOnce.and.calledWith(word);
     dbStub.should.have.been.calledOnce.and.calledWith('ader', word);
   });
+
+  it('should remove all anagrams from the Data Store by key', async () => {
+    const getKeyStub = sandbox.stub(keyService, 'getKey').returns('ader');
+    const dbStub = sandbox.stub(dbService, 'removeSetByKey').resolves({});
+    const word = 'read';
+    const drop = 'all';
+    await wordsService.removeFromDataStore(word, drop);
+    getKeyStub.should.have.been.calledOnce.and.calledWith(word);
+    dbStub.should.have.been.calledOnce.and.calledWith('ader');
+  });
+
 
   it('should drop the entire Data Store', async () => {
     const dbStub = sandbox.stub(dbService, 'dropDataStore').resolves({});

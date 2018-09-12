@@ -28,6 +28,9 @@ function addWordsToSet(key, word) {
 function removeWordFromSet(key, word) {
     client.srem(key, word, redis_1["default"].print);
 }
+function removeSetByKey(key) {
+    client.del(key, redis_1["default"].print);
+}
 /**
  * Will Drop the entire data store.  Careful!
  */
@@ -54,5 +57,6 @@ exports.dbService = {
     connectToRedis: connectToRedis,
     dropDataStore: dropDataStore,
     listWordsByKey: listWordsByKey,
+    removeSetByKey: removeSetByKey,
     removeWordFromSet: removeWordFromSet
 };

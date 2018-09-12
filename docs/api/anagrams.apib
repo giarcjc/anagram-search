@@ -1,14 +1,23 @@
 # Group Anagrams
 
-Returns anagrams of a provided word.
+## Anagrams [/anagrams/:word.json{?limit}]
+
+Provides a resource for searching and filtering anagrams of a given word.
 Anagrams will only be returned if they are actual English words as defined by the corpus.
 
-# GET /anagrams/read.json
+### List Anagrams [GET]
+
+Returns all anagrams of a provided word, excluding the provided word itself.
+If no limit is specified the maximium number of results will be 10,000.
+
++ Parameters
+
+    + limit: `1` (number, optional) - number of results to return.
+
 + Request
     + Headers
 
             Host:localhost:3000
-            User-Agent:curl/7.54.0
             Accept:*/*
 
     + Body
@@ -17,43 +26,9 @@ Anagrams will only be returned if they are actual English words as defined by th
 + Response 200
     + Headers
 
-            X-Powered-By:Express
             Content-Type:application/json; charset=utf-8
             Content-Length:28
-            ETag:W/"1c-s+6jar/Rgp2b/TCReYLBwy9TNL8"
-            Date:Fri, 07 Sep 2018 00:35:50 GMT
-            Connection:keep-alive
 
     + Body
 
             {"anagrams":["dear","dare"]}
-
-
-
-
-
-# GET /anagrams/read.json?limit=1
-+ Request
-    + Headers
-
-            Host:localhost:3000
-            User-Agent:curl/7.54.0
-            Accept:*/*
-
-    + Body
-
-
-
-+ Response 200
-    + Headers
-
-            X-Powered-By:Express
-            Content-Type:application/json; charset=utf-8
-            Content-Length:21
-            ETag:W/"15-7e0pJzVQS/kwfhNgoE7lkUIhD4M"
-            Date:Fri, 07 Sep 2018 00:37:07 GMT
-            Connection:keep-alive
-
-    + Body
-
-            {"anagrams":["dear"]}

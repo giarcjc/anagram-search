@@ -35,6 +35,10 @@ function removeWordFromSet(key: string, word: string) {
   client.srem(key, word, redis.print);
 }
 
+function removeSetByKey(key: string) {
+  client.del(key, redis.print);
+}
+
 /**
  * Will Drop the entire data store.  Careful!
  */
@@ -63,5 +67,6 @@ export const dbService = {
   connectToRedis,
   dropDataStore,
   listWordsByKey,
+  removeSetByKey,
   removeWordFromSet,
 }
