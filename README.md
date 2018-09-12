@@ -21,7 +21,7 @@ Pre-requisities:
 
 This command concatenates two scripts, `npm run docker-build` which builds the docker image, and `npm run dc-up` which uses the docker-compose file to spin up the Anagram-Search api with a linked Redis DB in it's own container.
 
-The first time you run the docker command, the project will take fairly long time to build the image.  However after the initial image is built it should be cached so you can simply run `npm run dc-up` to spin the project up quickly.
+The first time you run the docker command, the project will take a bit of time to build the image.  However after the initial image is built it should be cached, so you can simply run `npm run dc-up` to spin the project up quickly.
 
 Once the project is up and running you should see a log file resembling
 
@@ -35,7 +35,14 @@ which lets you know the api is ready for your queries.
 
 In order to verify that anagrams being returned for a given word are actual English words, we utilize a corpus.  The corpus is stored in Redis, which means we need to ingest a dictionary file (assumed to be dictionary.txt.gz) into the data store.
 
-The corpus is created at startup by importing the dictionary into Redis.  If you accidentally (or intentionally) drop the database via the DELETE /words.json route, the db can be re-seeded with the dictionary file by running:
+The corpus is created at startup by importing the dictionary into Redis. You should see a log message resembling
+
+```
+  {"name":"Anagram-Search-Api","hostname":"e14e39f76173","pid":46,"level":30,"msg":"Finished Importing Dictionary File.","time":"2018-09-12T02:44:27.252Z","v":0}
+```
+Which lets you know that the dictionary has successfully been imported, thus creating the corpus.
+
+If you accidentally (or intentionally) drop the database via the DELETE /words.json route, the db can be re-seeded with the dictionary file by running:
 
 ```
   npm run import
